@@ -13,14 +13,13 @@ data class UpdateAccountInput(val id: ID, val code: String, val name: String, va
 @Component
 class UpdateAccountMutation(private val accountUpdateUseCase: AccountUpdateUseCase) : Mutation {
     fun updateAccount(input: UpdateAccountInput): AccountType {
-        val output = accountUpdateUseCase.call(
-            AccountUpdateUseCaseInput(
-                id = input.id.toString().toLong(),
-                code = input.code,
-                name = input.name,
-                elementType = input.elementType,
-            )
+        val useCaseInput = AccountUpdateUseCaseInput(
+            id = input.id.toString().toLong(),
+            code = input.code,
+            name = input.name,
+            elementType = input.elementType,
         )
+        val output = accountUpdateUseCase.call(useCaseInput)
         return AccountType(output.account)
     }
 }

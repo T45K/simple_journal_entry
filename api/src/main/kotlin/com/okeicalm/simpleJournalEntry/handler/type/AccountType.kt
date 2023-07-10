@@ -5,9 +5,9 @@ import com.expediagroup.graphql.generator.scalars.ID
 import com.okeicalm.simpleJournalEntry.entity.Account
 import com.okeicalm.simpleJournalEntry.valueobject.AccountElementType
 
-const val accountTypeGraphQLName = "Account"
+private const val ACCOUNT_TYPE_GRAPHQL_NAME = "Account"
 
-@GraphQLName(accountTypeGraphQLName)
+@GraphQLName(ACCOUNT_TYPE_GRAPHQL_NAME)
 data class AccountType(
     val id: ID,
     val code: String,
