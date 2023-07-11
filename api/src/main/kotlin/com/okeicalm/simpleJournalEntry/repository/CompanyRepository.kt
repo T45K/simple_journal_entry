@@ -2,8 +2,10 @@ package com.okeicalm.simpleJournalEntry.repository
 
 import com.okeicalm.simpleJournalEntry.entity.Company
 import com.okeicalm.simpleJournalEntry.infra.db.tables.Companies
+import com.okeicalm.simpleJournalEntry.infra.db.tables.records.CompaniesRecord
 import org.jooq.DSLContext
 import org.jooq.Field
+import org.jooq.exception.DataAccessException
 import org.springframework.stereotype.Repository
 
 interface CompanyRepository {
@@ -33,7 +35,13 @@ class CompanyRepositoryImpl(private val dslContext: DSLContext) : CompanyReposit
     }
 
     override fun create(company: Company): Company {
-        TODO("Not yet implemented")
+        val id = dslContext.insertInto(Companies.COMPANIES)
+            .set(CompaniesRecord(name = company.name))
+            .returningResult(Companies.COMPANIES.ID)
+            .fetchOne()
+            ?.into(Long::class.java)
+            ?: throw DataAccessException("companies.id was not successfully generated during insert")
+        return company.copy(id = id)
     }
 
     override fun update(company: Company): Company? {
