@@ -45,7 +45,11 @@ class CompanyRepositoryImpl(private val dslContext: DSLContext) : CompanyReposit
     }
 
     override fun update(company: Company): Company? {
-        TODO("Not yet implemented")
+        val affectedRows = dslContext.update(Companies.COMPANIES)
+            .set(CompaniesRecord(id = company.id, name = company.name))
+            .where(Companies.COMPANIES.ID eq company.id)
+            .execute()
+        return if (affectedRows == 1) company else null
     }
 
     override fun delete(id: Long): Company? {
