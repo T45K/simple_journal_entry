@@ -1,6 +1,5 @@
 package com.okeicalm.simpleJournalEntry.handler.query
 
-import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.generator.scalars.ID
 import com.expediagroup.graphql.server.extensions.getValueFromDataLoader
 import com.expediagroup.graphql.server.extensions.getValuesFromDataLoader
@@ -19,11 +18,9 @@ class CompanyQuery(
     fun allCompanies(): List<CompanyType> =
         companyRepository.findAll().map(::CompanyType)
 
-    @GraphQLDescription("Get single company")
     fun company(id: ID, dataFetchingEnvironment: DataFetchingEnvironment): CompletableFuture<CompanyType?> =
         dataFetchingEnvironment.getValueFromDataLoader(CompanyDataLoader::class.simpleName!!, id)
 
-    @GraphQLDescription("Get companies")
     fun companies(
         ids: List<ID>,
         dataFetchingEnvironment: DataFetchingEnvironment,

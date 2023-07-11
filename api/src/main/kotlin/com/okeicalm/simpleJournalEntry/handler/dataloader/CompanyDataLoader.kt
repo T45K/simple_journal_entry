@@ -1,7 +1,7 @@
 package com.okeicalm.simpleJournalEntry.handler.dataloader
 
+import com.expediagroup.graphql.dataloader.KotlinDataLoader
 import com.expediagroup.graphql.generator.scalars.ID
-import com.expediagroup.graphql.server.execution.KotlinDataLoader
 import com.okeicalm.simpleJournalEntry.handler.type.CompanyType
 import com.okeicalm.simpleJournalEntry.repository.CompanyRepository
 import com.okeicalm.simpleJournalEntry.util.toLong
