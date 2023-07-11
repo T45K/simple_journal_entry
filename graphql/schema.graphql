@@ -61,18 +61,16 @@ type Mutation {
   createCompany(input: CreateCompanyInput!): Company!
   createJournal(input: CreateJournalInput!): Journal!
   deleteAccount(input: DeleteAccountInput!): DeleteAccountPayload!
-  deleteCompany(input: DeleteCompanyInput!): Company!
+  deleteCompany(input: DeleteCompanyInput!): Company
   updateAccount(input: UpdateAccountInput!): Account!
-  updateCompany(input: UpdateCompanyInput!): Company!
+  updateCompany(input: UpdateCompanyInput!): Company
 }
 
 type Query {
   allAccounts: [Account!]!
   allCompanies: [Company!]!
   allJournals: [Journal!]!
-  "Get companies"
   companies(ids: [ID!]!): [Company!]!
-  "Get single company"
   company(id: ID!): Company
 }
 
