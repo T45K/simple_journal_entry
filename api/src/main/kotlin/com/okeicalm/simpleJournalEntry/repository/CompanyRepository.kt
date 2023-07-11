@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository
 interface CompanyRepository {
     fun findAll(): List<Company>
     fun findById(id: Long): Company?
+    fun filterByIds(ids: List<Long>): List<Company>
     fun create(company: Company): Company
     fun update(company: Company): Company?
     fun delete(id: Long): Company?
@@ -18,12 +19,18 @@ interface CompanyRepository {
 class CompanyRepositoryImpl(private val dslContext: DSLContext) : CompanyRepository {
     override fun findAll(): List<Company> = dslContext.select()
         .from(Companies.COMPANIES)
-        .fetch()
-        .into(Company::class.java)
+        .fetchInto(Company::class.java)
 
     override fun findById(id: Long): Company? = dslContext
         .fetchOne(Companies.COMPANIES, Companies.COMPANIES.ID eq id)
         ?.into(Company::class.java)
+
+    override fun filterByIds(ids: List<Long>): List<Company> {
+        return dslContext.select()
+            .from(Companies.COMPANIES)
+            .where(Companies.COMPANIES.ID.`in`(ids))
+            .fetchInto(Company::class.java)
+    }
 
     override fun create(company: Company): Company {
         TODO("Not yet implemented")
