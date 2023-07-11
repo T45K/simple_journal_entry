@@ -14,7 +14,7 @@ interface CompanyRepository {
     fun filterByIds(ids: List<Long>): List<Company>
     fun create(company: Company): Company
     fun update(company: Company): Company?
-    fun delete(id: Long): Company?
+    fun delete(id: Long)
 }
 
 @Repository
@@ -52,8 +52,10 @@ class CompanyRepositoryImpl(private val dslContext: DSLContext) : CompanyReposit
         return if (affectedRows == 1) company else null
     }
 
-    override fun delete(id: Long): Company? {
-        TODO("Not yet implemented")
+    override fun delete(id: Long) {
+        dslContext.delete(Companies.COMPANIES)
+            .where(Companies.COMPANIES.ID eq id)
+            .execute()
     }
 
     private infix fun <T> Field<T>.eq(value: T) = this.eq(value)
