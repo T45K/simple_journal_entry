@@ -7,6 +7,7 @@ import com.okeicalm.simpleJournalEntry.handler.type.JournalType
 import com.okeicalm.simpleJournalEntry.usecase.journal.JournalCreateUseCase
 import com.okeicalm.simpleJournalEntry.usecase.journal.JournalCreateUseCaseInput
 import com.okeicalm.simpleJournalEntry.usecase.journal.JournalEntryInputData
+import com.okeicalm.simpleJournalEntry.util.toLong
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 
@@ -19,7 +20,7 @@ class CreateJournalMutation(private val journalCreateUseCase: JournalCreateUseCa
         val journalEntryInputDatum = input.createJournalEntryInput.map {
             JournalEntryInputData(
                 side = it.side.toByte(),
-                accountID = it.accountID.toString().toLong(),
+                accountID = it.accountID.toLong(),
                 value = it.value
             )
         }
@@ -32,7 +33,7 @@ class CreateJournalMutation(private val journalCreateUseCase: JournalCreateUseCa
         return JournalType(
             id = ID(outputData.journal.id.toString()),
             incurredOn = outputData.journal.incurredOn,
-            journalEntries = outputData.journal.journalEntries.map { JournalEntryType(it) }
+            journalEntries = outputData.journal.journalEntries.map(::JournalEntryType)
         )
     }
 }

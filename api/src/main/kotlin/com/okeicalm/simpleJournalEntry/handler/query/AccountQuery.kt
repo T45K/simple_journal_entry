@@ -7,7 +7,5 @@ import org.springframework.stereotype.Component
 
 @Component
 class AccountQuery(private val repository: AccountRepository) : Query {
-    fun allAccounts(): List<AccountType> {
-        return repository.findAll().map { AccountType(it) }
-    }
+    fun allAccounts(): List<AccountType> = repository.findAll().map(::AccountType)
 }

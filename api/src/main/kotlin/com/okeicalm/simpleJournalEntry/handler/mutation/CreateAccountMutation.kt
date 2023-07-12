@@ -12,13 +12,12 @@ data class CreateAccountInput(val code: String, val name: String, val elementTyp
 @Component
 class CreateAccountMutation(private val accountCreateUseCase: AccountCreateUseCase) : Mutation {
     fun createAccount(input: CreateAccountInput): AccountType {
-        val output = accountCreateUseCase.call(
-            AccountCreateUseCaseInput(
-                code = input.code,
-                name = input.name,
-                elementType = input.elementType,
-            )
+        val useCaseInput = AccountCreateUseCaseInput(
+            code = input.code,
+            name = input.name,
+            elementType = input.elementType,
         )
+        val output = accountCreateUseCase.call(useCaseInput)
         return AccountType(output.account)
     }
 }

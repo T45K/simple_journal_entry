@@ -5,9 +5,9 @@ import com.expediagroup.graphql.generator.scalars.ID
 import com.okeicalm.simpleJournalEntry.entity.Journal
 import java.time.LocalDate
 
-const val journalTypeGraphQLName = "Journal"
+private const val JOURNAL_TYPE_GRAPHQL_NAME = "Journal"
 
-@GraphQLName(journalTypeGraphQLName)
+@GraphQLName(JOURNAL_TYPE_GRAPHQL_NAME)
 data class JournalType(
     val id: ID,
     val incurredOn: LocalDate,

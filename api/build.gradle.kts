@@ -1,5 +1,4 @@
 import com.expediagroup.graphql.plugin.gradle.graphql
-import org.gradle.kotlin.dsl.flyway
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -32,7 +31,7 @@ repositories {
 
 extra["kotlin-coroutines.version"] = "1.6.0"
 
-val graphqlKotlinVersion = "5.1.0"
+val graphqlKotlinVersion = "6.5.3"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jooq:2.6.5")
@@ -42,14 +41,16 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.expediagroup", "graphql-kotlin-spring-server", graphqlKotlinVersion)
     implementation("com.expediagroup", "graphql-kotlin-schema-generator", graphqlKotlinVersion)
+    implementation("com.expediagroup", "graphql-kotlin-dataloader-instrumentation", graphqlKotlinVersion)
     implementation("com.graphql-java:graphql-java-extended-scalars:17.0")
     implementation("org.flywaydb:flyway-core:8.3.0")
     implementation("org.flywaydb:flyway-mysql:8.3.0")
     jooqGenerator("jakarta.xml.bind:jakarta.xml.bind-api:3.0.1")
-    jooqGenerator("mysql:mysql-connector-java:8.0.25")
+    jooqGenerator("mysql:mysql-connector-java:8.0.28")
     developmentOnly("org.springframework.boot:spring-boot-devtools:2.6.5")
-    runtimeOnly("mysql:mysql-connector-java:8.0.25")
+    runtimeOnly("mysql:mysql-connector-java:8.0.28")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.5")
+    testImplementation("com.graphql-java-kickstart:graphql-spring-boot-test:15.0.0")
     testImplementation("io.kotest:kotest-runner-junit5:5.1.0")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.0")
     testImplementation("com.ninja-squad:springmockk:3.1.0")

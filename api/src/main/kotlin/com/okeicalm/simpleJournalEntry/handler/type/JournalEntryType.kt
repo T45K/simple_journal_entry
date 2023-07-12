@@ -1,6 +1,5 @@
 package com.okeicalm.simpleJournalEntry.handler.type
 
-import com.expediagroup.graphql.generator.annotations.GraphQLIgnore
 import com.expediagroup.graphql.generator.annotations.GraphQLName
 import com.expediagroup.graphql.generator.scalars.ID
 import com.expediagroup.graphql.server.extensions.getValueFromDataLoader
@@ -8,14 +7,14 @@ import com.okeicalm.simpleJournalEntry.entity.JournalEntry
 import graphql.schema.DataFetchingEnvironment
 import java.util.concurrent.CompletableFuture
 
-const val journalEntryTypeGraphQLName = "JournalEntry"
+private const val JOURNAL_ENTRY_GRAPHQL_NAME = "JournalEntry"
 
-@GraphQLName(journalEntryTypeGraphQLName)
+@GraphQLName(JOURNAL_ENTRY_GRAPHQL_NAME)
 data class JournalEntryType(
     val id: ID,
     val side: Int,
     val value: Int,
-    @GraphQLIgnore val accountId: ID,
+    private val accountId: ID,
 ) {
     constructor(journalEntry: JournalEntry) : this(
         ID(journalEntry.id.toString()),
